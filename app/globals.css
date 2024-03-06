@@ -2,32 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --clr--dark: hsl(0, 0%, 0%);
+    --clr--primary: hsl(37, 30%, 73%);
+    --clr--secondary: hsl(11, 100%, 60%);
+    --clr--green: hsl(115, 55%, 55%);
+  }
+  body {
+    @apply relative bg-dark text-primary;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .input__filed {
+    @apply flex-1 rounded-full  border-none bg-[hsl(0,0%,12%)] p-2.5 text-sm outline-none placeholder:text-[hsl(33,10%,45%)] aria-[invalid="true"]:ring-2 aria-[invalid="true"]:ring-red-500 aria-[invalid="true"]:ring-offset-4 aria-[invalid="true"]:ring-offset-dark;
   }
 }
