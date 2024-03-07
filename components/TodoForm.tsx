@@ -23,7 +23,7 @@ export const TodoForm = ({ createTodo }: CreateTodoType) => {
     handleSubmit,
     setFocus,
     reset,
-    formState: { errors, isDirty, isSubmitting },
+    formState: { errors },
   } = useForm<TodoFormSChemaType>({ resolver: zodResolver(TodoFormSChema) })
 
   const onSubmit: SubmitHandler<TodoFormSChemaType> = (data) => {
@@ -50,7 +50,6 @@ export const TodoForm = ({ createTodo }: CreateTodoType) => {
           aria-invalid={errors.content ? 'true' : 'false'}
           className="input__filed"
           placeholder="write your next task"
-          disabled={!isDirty || isSubmitting}
         />
         <button
           type="submit"

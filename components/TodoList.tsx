@@ -32,8 +32,6 @@ export const TodoList = ({ todos, setTodos, openModal }: any) => {
           onChange={() => handleChange(todo.id)}
           onDelete={() => deleteTodo(todo.id)}
           openModal={() => handleOpenModal(todo.id)}
-          activeTodo={activeTodo}
-          setActiveTodo={setActiveTodo}
         />
       ))}
     </ul>
