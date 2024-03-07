@@ -20,7 +20,7 @@ export default function HomePage() {
   const completedTodos = todos.filter((todo) => todo.isCompleted).length
   const totalTodos = todos.length
 
-  const createTodo = (newTodo: any) => {
+  const createTodo = (newTodo: TodoType) => {
     if (!newTodo) return
 
     setTodos((prevTodos) => [...prevTodos, newTodo])

@@ -1,34 +1,61 @@
-export const TodoForm = ({ createTodo }: any) => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+'use client'
 
-    const form = e.target as HTMLFormElement
+import { useEffect } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
-    const formData = new FormData(form)
-    const content = formData.get('content')
+import { TodoType } from '@/types'
 
+const TodoFormSChema = z.object({
+  content: z.string().min(3),
+})
+
+type TodoFormSChemaType = z.infer<typeof TodoFormSChema>
+
+type CreateTodoType = {
+  createTodo: (todo: TodoType) => void
+}
+
+export const TodoForm = ({ createTodo }: CreateTodoType) => {
+  const {
+    register,
+    handleSubmit,
+    setFocus,
+    reset,
+    formState: { errors, isDirty, isSubmitting },
+  } = useForm<TodoFormSChemaType>({ resolver: zodResolver(TodoFormSChema) })
+
+  const onSubmit: SubmitHandler<TodoFormSChemaType> = (data) => {
     const newTodo = {
       id: crypto.randomUUID(),
-      todo: content,
+      todo: data.content,
       isCompleted: false,
     }
 
     createTodo(newTodo)
-
-    form.reset()
+    reset()
   }
 
+  useEffect(() => {
+    setFocus('content')
+  }, [setFocus])
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="relative flex items-center space-x-4">
         <input
+          {...register('content')}
           type="text"
-          aria-invalid="false"
-          name="content"
+          aria-invalid={errors.content ? 'true' : 'false'}
           className="input__filed"
           placeholder="write your next task"
+          disabled={!isDirty || isSubmitting}
         />
-        <button className="outine-none size-10 rounded-full border-none bg-secondary font-bold text-dark">
+        <button
+          type="submit"
+          className="outine-none size-10 rounded-full border-none bg-secondary font-bold text-dark"
+        >
           +
         </button>
       </div>

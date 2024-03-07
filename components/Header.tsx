@@ -8,7 +8,11 @@ export const Header = () => {
           Hash<span className="text-secondary">Code</span>
         </h3>
 
-        <a href="/">
+        <a
+          href="https://github.com/bruxx-6243/crud-app"
+          rel="noreferrer"
+          target="_blank"
+        >
           <Github className="size-6" />
         </a>
       </nav>

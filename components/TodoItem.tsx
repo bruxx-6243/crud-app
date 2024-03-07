@@ -1,6 +1,20 @@
 import { SquarePen, Trash } from 'lucide-react'
 
-export const TodoItem = ({ todo, onChange, onDelete, openModal }: any) => {
+import { TodoType } from '@/types'
+
+type TodoItemProps = {
+  todo: TodoType
+  onChange: () => void
+  onDelete: () => void
+  openModal: () => void
+}
+
+export const TodoItem = ({
+  todo,
+  onChange,
+  onDelete,
+  openModal,
+}: TodoItemProps) => {
   return (
     <li className="rounded-lg border border-[hsl(33,10%,45%)] bg-[hsl(0,0%,12%)] p-2.5">
       <div className="flex items-center justify-between space-x-2  px-2">
@@ -19,11 +33,7 @@ export const TodoItem = ({ todo, onChange, onDelete, openModal }: any) => {
           {todo.todo}
         </p>
         <div className="flex items-center space-x-3">
-          <button
-            onClick={() => {
-              openModal()
-            }}
-          >
+          <button onClick={openModal}>
             <SquarePen className="size-5 text-[hsl(33,10%,45%)] transition-colors hover:text-primary" />
           </button>
           <button onClick={onDelete}>

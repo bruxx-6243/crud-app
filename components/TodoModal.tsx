@@ -13,8 +13,24 @@ export const TodoModal = ({ closeModal, updateTodo, activeTodo }: any) => {
     InputRef.current?.focus()
   }, [])
 
+  useEffect(() => {
+    const keypress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeModal()
+      }
+    }
+
+    document.addEventListener('keydown', keypress)
+
+    return () => {
+      document.removeEventListener('keydown', keypress)
+    }
+  }, [closeModal])
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
+    if (!InputRef.current?.value || InputRef.current?.value.length < 3) return
 
     updateTodo(updatedContent)
     closeModal()
@@ -25,11 +41,11 @@ export const TodoModal = ({ closeModal, updateTodo, activeTodo }: any) => {
   }
 
   return (
-    <div className="animate-open-modal absolute inset-0 h-screen bg-slate-800/70 transition-all">
+    <div className="absolute inset-0 h-screen animate-open-modal bg-slate-800/70 transition-all">
       <div className="flex justify-center p-10">
         <form
           onSubmit={handleSubmit}
-          className="animate-fade-modal w-full max-w-md  space-y-8 rounded-xl bg-dark p-6 "
+          className="w-full max-w-md animate-fade-modal  space-y-8 rounded-xl bg-dark p-6 "
         >
           <input
             ref={InputRef}
