@@ -1,4 +1,5 @@
 import { SquarePen, Trash } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 import { TodoType } from '@/types'
 
@@ -16,7 +17,11 @@ export const TodoItem = ({
   openModal,
 }: TodoItemProps) => {
   return (
-    <li className="rounded-lg border border-[hsl(33,10%,45%)] bg-[hsl(0,0%,12%)] p-2.5">
+    <motion.li
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="rounded-lg border border-[hsl(33,10%,45%)] bg-[hsl(0,0%,12%)] p-2.5"
+    >
       <div className="flex items-center justify-between space-x-2  px-2">
         <label className="flex cursor-pointer items-center justify-center">
           <input
@@ -41,6 +46,6 @@ export const TodoItem = ({
           </button>
         </div>
       </div>
-    </li>
+    </motion.li>
   )
 }
