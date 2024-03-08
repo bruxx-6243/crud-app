@@ -40,7 +40,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="container flex flex-col space-y-8">
+      <div className="container flex flex-col space-y-10">
         <Result completedTodos={completedTodos} totalTodos={totalTodos} />
         <TodoForm createTodo={createTodo} />
         <TodoList

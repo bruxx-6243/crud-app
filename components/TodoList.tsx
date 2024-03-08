@@ -1,5 +1,8 @@
+"use client"
+
 import { useState } from 'react'
 import { TodoItem } from '@/components/TodoItem'
+
 import { TodoType } from '@/types'
 
 export const TodoList = ({ todos, setTodos, openModal }: any) => {
