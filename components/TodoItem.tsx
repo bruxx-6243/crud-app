@@ -33,6 +33,7 @@ export const TodoItem = ({
 }: TodoItemProps) => {
   return (
     <Reorder.Item
+as="li"
       {...variants}
       value={todo}
       whileDrag={{
