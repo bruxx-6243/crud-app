@@ -1,9 +1,20 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { TodoType } from '@/types'
 
-export const TodoModal = ({ closeModal, updateTodo, activeTodo }: any) => {
-  const [updatedContent, setUpdatedContent] = useState(
+type TodoModalType = {
+  closeModal: () => void
+  updateTodo: (content: string) => void
+  activeTodo: TodoType | null
+}
+
+export const TodoModal = ({
+  closeModal,
+  updateTodo,
+  activeTodo,
+}: TodoModalType) => {
+  const [updatedContent, setUpdatedContent] = useState<string>(
     activeTodo ? activeTodo.todo : '',
   )
 

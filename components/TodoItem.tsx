@@ -1,5 +1,5 @@
 import { SquarePen, Trash } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Reorder } from 'framer-motion'
 
 import { TodoType } from '@/types'
 
@@ -10,6 +10,21 @@ type TodoItemProps = {
   openModal: () => void
 }
 
+const variants = {
+  initial: {
+    opacity: 0,
+    y: -100,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    y: -100,
+  },
+}
+
 export const TodoItem = ({
   todo,
   onChange,
@@ -17,10 +32,15 @@ export const TodoItem = ({
   openModal,
 }: TodoItemProps) => {
   return (
-    <motion.li
-      initial={{ opacity: 0, y: -100 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="rounded-lg border border-[hsl(33,10%,45%)] bg-[hsl(0,0%,12%)] p-2.5"
+    <Reorder.Item
+      {...variants}
+      value={todo}
+      whileDrag={{
+        scale: 1.1,
+        boxShadow: 'rgba(0,0,0.0.12) 0px 1px 3px, rgba(0,0,0,0.24) 0px 2px 2px',
+      }}
+      onDoubleClick={onDelete}
+      className="cursor-pointer rounded-lg border border-[hsl(33,10%,45%)] bg-[hsl(0,0%,12%)] p-2.5"
     >
       <div className="flex items-center justify-between space-x-2  px-2">
         <label className="flex cursor-pointer items-center justify-center">
@@ -46,6 +66,6 @@ export const TodoItem = ({
           </button>
         </div>
       </div>
-    </motion.li>
+    </Reorder.Item>
   )
 }

@@ -1,11 +1,18 @@
-"use client"
+'use client'
 
 import { useState } from 'react'
-import { TodoItem } from '@/components/TodoItem'
+import { Reorder, AnimatePresence } from 'framer-motion'
 
+import { TodoItem } from '@/components/TodoItem'
 import { TodoType } from '@/types'
 
-export const TodoList = ({ todos, setTodos, openModal }: any) => {
+type TodoListPropos = {
+  todos: TodoType[]
+  setTodos: (todos: TodoType[]) => void
+  openModal: (id: string) => void
+}
+
+export const TodoList = ({ todos, setTodos, openModal }: TodoListPropos) => {
   const [activeTodo, setActiveTodo] = useState<TodoType | null>(null)
 
   const handleChange = (id: string) => {
@@ -21,22 +28,34 @@ export const TodoList = ({ todos, setTodos, openModal }: any) => {
   }
 
   const handleOpenModal = (id: string) => {
-    setActiveTodo(todos.find((todo: TodoType) => todo.id === id))
+    const activeTodo = todos.find((todo: TodoType) => todo.id === id)
+
+    if (activeTodo) {
+      setActiveTodo(activeTodo)
+    }
 
     openModal(id)
   }
 
   return (
-    <ul className="flex flex-col space-y-4">
-      {todos.map((todo: TodoType) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          onChange={() => handleChange(todo.id)}
-          onDelete={() => deleteTodo(todo.id)}
-          openModal={() => handleOpenModal(todo.id)}
-        />
-      ))}
-    </ul>
+    <Reorder.Group
+      as="ul"
+      axis="y"
+      values={todos}
+      onReorder={setTodos}
+      className="flex flex-col space-y-4"
+    >
+      <AnimatePresence initial={false}>
+        {todos.map((todo: TodoType) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onChange={() => handleChange(todo.id)}
+            onDelete={() => deleteTodo(todo.id)}
+            openModal={() => handleOpenModal(todo.id)}
+          />
+        ))}
+      </AnimatePresence>
+    </Reorder.Group>
   )
 }
