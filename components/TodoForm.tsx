@@ -8,7 +8,7 @@ import { z } from 'zod'
 import { TodoType } from '@/types'
 
 const TodoFormSChema = z.object({
-  content: z.string().min(3),
+  content: z.string().trim().min(3),
 })
 
 type TodoFormSChemaType = z.infer<typeof TodoFormSChema>
@@ -27,6 +27,8 @@ export const TodoForm = ({ createTodo }: CreateTodoType) => {
   } = useForm<TodoFormSChemaType>({ resolver: zodResolver(TodoFormSChema) })
 
   const onSubmit: SubmitHandler<TodoFormSChemaType> = (data) => {
+    if (!data.content.trim()) return
+
     const newTodo = {
       id: crypto.randomUUID(),
       todo: data.content,
