@@ -6,6 +6,8 @@ import { Reorder, AnimatePresence } from 'framer-motion'
 import { TodoItem } from '@/components/TodoItem'
 import { TodoType } from '@/types'
 
+import { toast } from 'sonner'
+
 type TodoListPropos = {
   todos: TodoType[]
   setTodos: (todos: TodoType[]) => void
@@ -25,6 +27,7 @@ export const TodoList = ({ todos, setTodos, openModal }: TodoListPropos) => {
 
   const deleteTodo = (id: string) => {
     setTodos(todos.filter((todo: TodoType) => todo.id !== id))
+    toast.info('Task successfully deleted')
   }
 
   const handleOpenModal = (id: string) => {

@@ -5,6 +5,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
+import { toast } from 'sonner'
+
 import { TodoType } from '@/types'
 
 const TodoFormSChema = z.object({
@@ -36,6 +38,10 @@ export const TodoForm = ({ createTodo }: CreateTodoType) => {
     }
 
     createTodo(newTodo)
+
+    toast.success('Successfully added task', {
+      description: data.content,
+    })
     reset()
   }
 
