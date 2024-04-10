@@ -34,6 +34,7 @@ export const TodoItem = ({
   return (
     <Reorder.Item
       {...variants}
+      as="li"
       value={todo}
       whileDrag={{
         scale: 1.1,
