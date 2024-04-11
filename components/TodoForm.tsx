@@ -39,9 +39,7 @@ export const TodoForm = ({ createTodo }: CreateTodoType) => {
 
     createTodo(newTodo)
 
-    toast.success('Successfully added task', {
-      description: data.content,
-    })
+    toast.success('Successfully added task')
     reset()
   }
 

@@ -27,7 +27,7 @@ export const TodoList = ({ todos, setTodos, openModal }: TodoListPropos) => {
 
   const deleteTodo = (id: string) => {
     setTodos(todos.filter((todo: TodoType) => todo.id !== id))
-    toast.info('Task successfully deleted')
+    toast.error('Task successfully deleted')
   }
 
   const handleOpenModal = (id: string) => {

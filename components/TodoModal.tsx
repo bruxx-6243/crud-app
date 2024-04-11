@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { TodoType } from '@/types'
+import { toast } from 'sonner'
 
 type TodoModalType = {
   closeModal: () => void
@@ -44,6 +45,7 @@ export const TodoModal = ({
     if (!InputRef.current?.value || InputRef.current?.value.length < 3) return
 
     updateTodo(updatedContent)
+    toast.info('Task successfully updated')
     closeModal()
   }
 
